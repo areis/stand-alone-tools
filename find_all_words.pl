@@ -59,11 +59,12 @@ else {
 $string     = $options{s};
 $string_len = length( $string );
 
-@chars = split( "", $string );
+@chars = split( "", lc( $string ));
 
 # Get the dictionary
 open ( $handle, $options{d} ) || die "Error opening $options{d} $!";
-chomp(@words = <$handle>);
+chomp( @words = <$handle> );
+$_ = lc for @words;
 close $handle;
 
 # Permute and lookup
@@ -80,5 +81,4 @@ while ( @res = $p->next ) {
     }
 }
 
-#  print '[' . join( "", @res ) . ']' if isword(
 print "---\n";
